@@ -39,4 +39,14 @@ public class Dinosaur : MonoBehaviour
     {
         Gizmos.DrawWireSphere(cCenter.position, cRadius);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            GameManager.Instance.ShowGameOverScreen();
+            dAnimator.SetTrigger("Die");
+            Time.timeScale = 0f;
+        }
+    }
 }
