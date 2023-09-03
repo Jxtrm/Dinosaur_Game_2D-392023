@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private TMP_Text scoreText;
+    private int score;
+    private float timer;
 
     public static GameManager Instance { get; private set; }
     // Start is called before the first frame update
@@ -24,7 +28,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateScore();
     }
 
     public void ShowGameOverScreen()
@@ -36,5 +40,13 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
+    }
+
+    private void UpdateScore()
+    {
+        int scorePerSeconds = 10;
+        timer += Time.deltaTime;
+        score = (int)(timer * scorePerSeconds);
+        scoreText.text = string.Format("{0:00000}", score);
     }
 }
